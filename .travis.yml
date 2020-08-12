@@ -6,10 +6,11 @@ services:
   - docker
 
 before_script:
-  - export APP_IMAGE=keboola-component
+  - export APP_IMAGE=keboola-ex-db-informix
   - docker -v
   - docker build -t $APP_IMAGE .
-  - docker run $APP_IMAGE composer ci
+  - docker-compose run --rm wait
+  - docker-compose run --rm app composer ci
 
   # push test image to ECR
   - docker pull quay.io/keboola/developer-portal-cli-v2:latest
