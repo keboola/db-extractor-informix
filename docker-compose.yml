@@ -1,7 +1,32 @@
 version: '3'
 services:
-  dev:
+  app: &base
+    image: keboola-ex-db-informix
     build: .
+    environment:
+      DB_USER: informix
+      DB_PASSWORD: in4mix
+      DB_HOST: db
+      DB_PORT: 9088
+      DB_DATABASE: testdb
+    depends_on:
+      - db
+
+  dev:
+    <<: *base
     volumes:
-      - ./:/code
-      - ./data:/data
+      - .:/code
+
+  wait:
+    image: waisbrot/wait
+    depends_on:
+      - db
+    environment:
+      - TARGETS=db:9088
+      - TIMEOUT=60
+
+  db:
+    image: ibmcom/informix-developer-database
+    environment:
+      STORAGE: local
+      LICENSE: accept
