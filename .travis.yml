@@ -8,7 +8,7 @@ services:
 before_script:
   - export APP_IMAGE=keboola-ex-db-informix
   - docker -v
-  - docker build -t $APP_IMAGE .
+  - docker build --build-arg AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY --build-arg AWS_SESSION_TOKEN -t $APP_IMAGE .
   - docker-compose run --rm wait
   - docker-compose run --rm app composer ci
 
