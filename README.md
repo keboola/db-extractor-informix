@@ -10,10 +10,16 @@
 
 ## Development
  
+Create `.env` file with AWS credentials. They are needed to download the driver from the `keboola-drivers` bucket.
+```
+AWS_ACCESS_KEY_ID=...
+AWS_SECRET_ACCESS_KEY=...
+```
+ 
 Clone this repository and init the workspace with following command:
 
 ```
-git clone https://github.com/keboola/my-component
+git clone https://github.com/keboola/db-extractor-informix
 cd my-component
 docker-compose build
 docker-compose run --rm dev composer install --no-scripts

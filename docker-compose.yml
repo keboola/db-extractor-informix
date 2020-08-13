@@ -2,13 +2,18 @@ version: '3'
 services:
   app: &base
     image: keboola-ex-db-informix
-    build: .
+    build:
+      context: .
+      args:
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
     environment:
       DB_USER: informix
       DB_PASSWORD: in4mix
       DB_HOST: db
       DB_PORT: 9088
-      DB_DATABASE: testdb
+      DB_DATABASE: sysadmin
+      DB_SERVER_NAME: informix
     depends_on:
       - db
 
