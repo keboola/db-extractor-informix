@@ -3,7 +3,6 @@
 FROM quay.io/keboola/aws-cli AS keboola-drivers
 ARG AWS_SECRET_ACCESS_KEY
 ARG AWS_ACCESS_KEY_ID
-ARG AWS_SESSION_TOKEN
 RUN /usr/bin/aws s3 cp s3://keboola-drivers/informix-odbc/INFORMIX_CLIENT_SDK_4.50.FC4W1_Linux_x86.tar /tmp/informix-odbc.tar
 
 FROM php:7.4-cli
