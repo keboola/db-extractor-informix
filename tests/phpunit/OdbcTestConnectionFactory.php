@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyComponent\Tests;
+namespace Keboola\DbExtractor\Tests;
 
 use ErrorException;
 use RuntimeException;
