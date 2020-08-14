@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Keboola\DbExtractor\Tests;
 
 use ErrorException;
+use Keboola\DbExtractor\OdbcDsnFactory;
 use RuntimeException;
 
 class OdbcTestConnectionFactory
@@ -12,16 +13,13 @@ class OdbcTestConnectionFactory
     /** @return resource */
     public static function create()
     {
-        $driverName = 'IBM Informix Informix ODBC DRIVER'; // TODO add constant
-        $dsn = sprintf(
-            'Driver={%s};Host=%s;Server=%s;Service=%s;Protocol=olsoctcp;Database=%s;',
-            $driverName,
+        $dsnFactory = new OdbcDsnFactory();
+        $dsn = $dsnFactory->create(
             (string) getenv('DB_HOST'),
             (string) getenv('DB_SERVER_NAME'),
             (string) getenv('DB_PORT'),
-            (string) getenv('DB_DATABASE'),
+            (string) getenv('DB_DATABASE')
         );
-
         $resource = @odbc_connect($dsn, (string) getenv('DB_USER'), (string) getenv('DB_PASSWORD'));
         if ($resource === false) {
             throw new ErrorException(odbc_errormsg() . ' ' . odbc_error());
@@ -44,7 +42,9 @@ class OdbcTestConnectionFactory
                 echo " OK\n";
                 break;
             } catch (ErrorException $e) {
-                if (strpos($e->getMessage(), 'Database not found') === false) {
+                if (strpos($e->getMessage(), 'Database not found') === false ||
+                    strpos($e->getMessage(), 'No connections are allowed in quiescent mode.') === false
+                ) {
                     throw $e;
                 }
 

@@ -11,7 +11,10 @@
     "require": {
         "php": "^7.4",
         "ext-odbc": "*",
-        "keboola/php-component": "^8.1"
+        "keboola/php-component": "^8.1",
+        "keboola/db-extractor-common": "^14.0",
+        "keboola/db-extractor-config": "^1.4.7",
+        "keboola/db-extractor-table-format": "^3.1.6"
     },
     "require-dev": {
         "php-parallel-lint/php-parallel-lint": "^1.2",

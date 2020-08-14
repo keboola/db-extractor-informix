@@ -1,3 +1,5 @@
 parameters:
+    checkMissingIterableValueType: false
     ignoreErrors:
-        - '#Cannot call method end\(\) on Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null.#'
+        # Parameter is optional, can be null
+        - '#Parameter \#2 \$qualifier of function odbc_.* expects string, null given.#'
