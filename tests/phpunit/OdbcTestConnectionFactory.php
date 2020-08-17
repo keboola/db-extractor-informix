@@ -42,7 +42,7 @@ class OdbcTestConnectionFactory
                 echo " OK\n";
                 break;
             } catch (ErrorException $e) {
-                if (strpos($e->getMessage(), 'Database not found') === false ||
+                if (strpos($e->getMessage(), 'Database not found') === false &&
                     strpos($e->getMessage(), 'No connections are allowed in quiescent mode.') === false
                 ) {
                     throw $e;

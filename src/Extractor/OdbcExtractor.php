@@ -17,6 +17,11 @@ class OdbcExtractor extends BaseExtractor
 {
     protected OdbcConnection $connection;
 
+    public function testConnection(): void
+    {
+        $this->connection->testConnection();
+    }
+
     protected function createConnection(DatabaseConfig $databaseConfig): void
     {
         if (!$databaseConfig instanceof OdbcDatabaseConfig) {
@@ -66,5 +71,11 @@ class OdbcExtractor extends BaseExtractor
         );
         $result = $this->connection->query($sql, $exportConfig->getMaxRetries())->fetchAll();
         return $result ? $result[0][$exportConfig->getIncrementalFetchingColumn()] : null;
+    }
+
+
+    protected function createDatabaseConfig(array $data): DatabaseConfig
+    {
+        return OdbcDatabaseConfig::fromArray($data);
     }
 }

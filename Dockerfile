@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         locales \
         unzip \
+        ssh \
         libncurses5 \
         unixodbc \
         unixodbc-dev \

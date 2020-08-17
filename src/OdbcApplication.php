@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor;
 
+use Keboola\DbExtractor\Exception\UserException;
 use Psr\Log\LoggerInterface;
 use Keboola\DbExtractor\Configuration\OdbcDbNode;
 use Keboola\DbExtractorConfig\Configuration\ActionConfigRowDefinition;
-use Keboola\DbExtractorConfig\Configuration\ConfigDefinition;
 use Keboola\DbExtractorConfig\Configuration\ConfigRowDefinition;
 use Keboola\DbExtractorConfig\Config;
 
@@ -30,7 +30,7 @@ class OdbcApplication extends Application
                 $this->config = new Config($config, new ActionConfigRowDefinition($dbNode));
             }
         } else {
-            $this->config = new Config($config, new ConfigDefinition($dbNode));
+            throw new UserException('The old configuration format is not supported. Please use config rows.');
         }
     }
 }
