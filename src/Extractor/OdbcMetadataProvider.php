@@ -17,7 +17,7 @@ class OdbcMetadataProvider implements MetadataProvider
     protected OdbcConnection $connection;
 
     /**
-     * @var resource
+     * @var resource Odbc resource
      */
     protected $resource;
 
