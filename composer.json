@@ -1,13 +1,23 @@
 {
-    "name": "keboola/my-component",
-    "description": "MyComponent description",
+    "name": "keboola/db-extractor-informix",
+    "description": "Docker application for exporting data from Informix database.",
+    "authors": [
+        {
+            "name": "Keboola",
+            "email": "devel@keboola.com"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.4",
         "ext-odbc": "*",
-        "keboola/php-component": "^8.1"
+        "keboola/php-component": "^8.1",
+        "keboola/db-extractor-common": "^14.0.1",
+        "keboola/db-extractor-config": "^1.4.7",
+        "keboola/db-extractor-table-format": "^3.1.6"
     },
     "require-dev": {
+        "ext-json": "*",
         "php-parallel-lint/php-parallel-lint": "^1.2",
         "keboola/coding-standard": ">=7.0.2",
         "keboola/datadir-tests": "^4.0",
@@ -18,13 +28,13 @@
     },
     "autoload": {
         "psr-4": {
-            "MyComponent\\": "src/"
+            "Keboola\\DbExtractor\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "MyComponent\\Tests\\": "tests/phpunit/",
-            "MyComponent\\FunctionalTests\\": "tests/functional/"
+            "Keboola\\DbExtractor\\Tests\\": "tests/phpunit/",
+            "Keboola\\DbExtractor\\FunctionalTests\\": "tests/functional/"
         }
     },
     "scripts": {

@@ -14,12 +14,16 @@ services:
       DB_PORT: 9088
       DB_DATABASE: sysadmin
       DB_SERVER_NAME: informix
+    volumes:
+      - ssh-keys:/root/.ssh:ro
     depends_on:
       - db
+      - sshproxy
 
   dev:
     <<: *base
     volumes:
+      - ssh-keys:/root/.ssh:ro
       - .:/code
 
   wait:
@@ -30,8 +34,18 @@ services:
       - TARGETS=db:9088
       - TIMEOUT=60
 
+  sshproxy:
+    image: keboola/db-component-ssh-proxy:latest
+    volumes:
+      - ssh-keys:/root/.ssh
+    links:
+      - db
+
   db:
     image: ibmcom/informix-developer-database
     environment:
       STORAGE: local
       LICENSE: accept
+
+volumes:
+  ssh-keys:
