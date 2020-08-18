@@ -46,6 +46,8 @@ class DatadirTest extends AbstractDatadirTestCase
             /** @var string $config */
             $config = file_get_contents($configPath);
             $config = preg_replace_callback(
+                // Replace eg. "${DB_SERVER_NAME}" using replaceVariableInConfig function,
+                // ... so config.json in data-dir test can be static, and is processed by this regexp.
                 '~"\$\{([^{}]+)\}"~',
                 fn($m) => $this->replaceVariableInConfig($m[1]),
                 $config
