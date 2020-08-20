@@ -1,5 +1,3 @@
 parameters:
     checkMissingIterableValueType: false
-    ignoreErrors:
-        # Parameter is optional, can be null
-        - '#Parameter \#2 \$qualifier of function odbc_.* expects string, null given.#'
+    ignoreErrors: []

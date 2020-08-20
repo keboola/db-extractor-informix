@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor\Extractor;
 
+use InvalidArgumentException;
 use Keboola\DbExtractor\Adapter\ExportAdapter;
-use Keboola\DbExtractor\Adapter\ODBC\OdbcConnection;
 use Keboola\DbExtractor\Adapter\ODBC\OdbcExportAdapter;
 use Keboola\DbExtractor\Adapter\Query\DefaultQueryFactory;
 use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
+use Keboola\DbExtractor\Metadata\MetadataProcessor;
+use Keboola\DbExtractor\Metadata\OdbcMetadataProvider;
+use Keboola\DbExtractor\Metadata\OdbcMetadataProviderFactory;
+use Keboola\DbExtractor\Metadata\Query\MetadataQueryFactory;
 use Keboola\DbExtractor\OdbcDsnFactory;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\DatabaseConfig;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\ExportConfig;
@@ -25,7 +29,7 @@ class OdbcExtractor extends BaseExtractor
     protected function createConnection(DatabaseConfig $databaseConfig): void
     {
         if (!$databaseConfig instanceof OdbcDatabaseConfig) {
-            throw new \InvalidArgumentException('Expected OdbcDatabaseConfig.');
+            throw new InvalidArgumentException('Expected OdbcDatabaseConfig.');
         }
 
         $dsnFactory = new OdbcDsnFactory();
@@ -57,7 +61,8 @@ class OdbcExtractor extends BaseExtractor
 
     protected function getMetadataProvider(): MetadataProvider
     {
-        return new OdbcMetadataProvider($this->connection);
+        $factory = new OdbcMetadataProviderFactory($this->connection, $this->getDatabaseConfig());
+        return $factory->create();
     }
 
     protected function getMaxOfIncrementalFetchingColumn(ExportConfig $exportConfig): ?string
