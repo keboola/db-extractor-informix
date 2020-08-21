@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Keboola\DbExtractor;
 
 use Keboola\DbExtractor\Exception\UserException;
+use Keboola\DbExtractorConfig\Configuration\GetTablesListFilterDefinition;
 use Psr\Log\LoggerInterface;
 use Keboola\DbExtractor\Configuration\OdbcDbNode;
 use Keboola\DbExtractorConfig\Configuration\ActionConfigRowDefinition;
@@ -26,6 +27,9 @@ class OdbcApplication extends Application
         if ($this->isRowConfiguration($config)) {
             if ($this['action'] === 'run') {
                 $this->config = new Config($config, new ConfigRowDefinition($dbNode));
+            } elseif ($this['action'] === 'getTables') {
+                // Tables and columns can be loaded separately
+                $this->config = new Config($config, new GetTablesListFilterDefinition($dbNode));
             } else {
                 $this->config = new Config($config, new ActionConfigRowDefinition($dbNode));
             }

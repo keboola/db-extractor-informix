@@ -12,7 +12,8 @@ class OdbcDsnFactory
     {
         // ServerName is additional connection parameter required by Informix
         return sprintf(
-            'Driver={%s};Host=%s;Server=%s;Service=%s;Protocol=olsoctcp;Database=%s;',
+            'Driver={%s};Host=%s;Server=%s;Service=%s;Protocol=olsoctcp;Database=%s;' .
+            'client_locale=en_US.UTF8;SINGLETHREADED=1;',
             self::ODBC_DRIVER_NAME,
             $host,
             $serverName,

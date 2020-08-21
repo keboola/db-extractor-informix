@@ -12,7 +12,7 @@ services:
       DB_PASSWORD: in4mix
       DB_HOST: db
       DB_PORT: 9088
-      DB_DATABASE: sysadmin
+      DB_DATABASE: test # see create.sql
       DB_SERVER_NAME: informix
     volumes:
       - ssh-keys:/root/.ssh:ro
@@ -46,6 +46,9 @@ services:
     environment:
       STORAGE: local
       LICENSE: accept
+      INIT_FILE: init.sql
+    volumes:
+      - ./docker/informix/init.sql:/opt/ibm/config/init.sql
 
 volumes:
   ssh-keys:

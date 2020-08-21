@@ -12,7 +12,7 @@ abstract class BaseTest extends TestCase
 {
     protected const ROOT_PATH = __DIR__ . '/../..';
 
-    /** @var resource */
+    /** @var resource ODBC connection resource */
     protected $connection;
 
     protected Temp $temp;
@@ -22,12 +22,28 @@ abstract class BaseTest extends TestCase
         parent::setUp();
         $this->connection = OdbcTestConnectionFactory::create();
         $this->temp = new Temp();
+        $this->removeAllTables();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
         $this->temp->remove();
+        $this->removeAllTables();
+    }
+
+    protected function removeAllTables(): void
+    {
+        // Delete all tables, except sys tables
+        $sql = "SELECT tabname FROM SYSTABLES WHERE tabtype IN ('T', 'E', 'V') AND tabname NOT LIKE 'sys%'";
+        $stmt = odbc_exec($this->connection, $sql);
+        while (true) {
+            $row = odbc_fetch_array($stmt);
+            if (!$row) {
+                break;
+            }
+            odbc_exec($this->connection, sprintf('DROP TABLE %s', $row['tabname']));
+        }
     }
 
     protected function createAppProcess(array $config): Process
