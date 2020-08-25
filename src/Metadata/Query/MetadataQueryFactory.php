@@ -10,7 +10,7 @@ use Keboola\DbExtractorConfig\Configuration\ValueObject\DatabaseConfig;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\InputTable;
 
 /**
- * This class generates database specific SQLs to load tables and columns metadata.
+ * Generates database specific SQLs to load tables and columns metadata.
  * Code is database specific and cannot be universal for all ODBC drivers.
  * Universal methods such as odbc_columns don't work reliably (e.g. encoding problems.).
  */

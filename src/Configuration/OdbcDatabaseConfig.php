@@ -6,6 +6,9 @@ namespace Keboola\DbExtractor\Configuration;
 
 use Keboola\DbExtractorConfig\Configuration\ValueObject\DatabaseConfig;
 
+/**
+ * Value object that contains the configuration from the "db" node.
+ */
 class OdbcDatabaseConfig extends DatabaseConfig
 {
     private string $serverName;

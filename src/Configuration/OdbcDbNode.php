@@ -7,6 +7,9 @@ namespace Keboola\DbExtractor\Configuration;
 use Keboola\DbExtractorConfig\Configuration\NodeDefinition\DbNode;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
+/**
+ * Definition of the "db" configuration node.
+ */
 class OdbcDbNode extends DbNode
 {
     protected function init(NodeBuilder $builder): void

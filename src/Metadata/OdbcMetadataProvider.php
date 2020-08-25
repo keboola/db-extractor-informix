@@ -23,7 +23,7 @@ class OdbcMetadataProvider implements MetadataProvider
 
     protected MetadataQueryFactory $queryFactory;
 
-    protected MetadataProcessor $processor;
+    protected OdbcMetadataProcessor $processor;
 
     /** @var TableCollection[] */
     private array $cache = [];
@@ -31,7 +31,7 @@ class OdbcMetadataProvider implements MetadataProvider
     public function __construct(
         DbConnection $connection,
         MetadataQueryFactory $queryFactory,
-        MetadataProcessor $processor
+        OdbcMetadataProcessor $processor
     ) {
         $this->connection = $connection;
         $this->queryFactory = $queryFactory;
