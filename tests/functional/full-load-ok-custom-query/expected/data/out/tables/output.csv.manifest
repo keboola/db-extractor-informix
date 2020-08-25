@@ -1,0 +1,7 @@
+{
+    "destination": "output",
+    "incremental": false,
+    "primary_key": [
+        "id"
+    ]
+}
