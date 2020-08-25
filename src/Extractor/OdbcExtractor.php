@@ -7,12 +7,8 @@ namespace Keboola\DbExtractor\Extractor;
 use InvalidArgumentException;
 use Keboola\DbExtractor\Adapter\ExportAdapter;
 use Keboola\DbExtractor\Adapter\ODBC\OdbcExportAdapter;
-use Keboola\DbExtractor\Adapter\Query\DefaultQueryFactory;
 use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
-use Keboola\DbExtractor\Metadata\MetadataProcessor;
-use Keboola\DbExtractor\Metadata\OdbcMetadataProvider;
 use Keboola\DbExtractor\Metadata\OdbcMetadataProviderFactory;
-use Keboola\DbExtractor\Metadata\Query\MetadataQueryFactory;
 use Keboola\DbExtractor\OdbcDsnFactory;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\DatabaseConfig;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\ExportConfig;
@@ -49,7 +45,7 @@ class OdbcExtractor extends BaseExtractor
 
     protected function createExportAdapter(): ExportAdapter
     {
-        $queryFactory = new DefaultQueryFactory($this->state);
+        $queryFactory = new OdbcQueryFactory($this->state);
         return new OdbcExportAdapter(
             $this->logger,
             $this->connection,
