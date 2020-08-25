@@ -12,8 +12,9 @@ class OdbcDsnFactory
     {
         // ServerName is additional connection parameter required by Informix
         return sprintf(
-            'Driver={%s};Host=%s;Server=%s;Service=%s;Protocol=olsoctcp;Database=%s;' .
-            'client_locale=en_US.UTF8;SINGLETHREADED=1;',
+            'Driver={%s};Host=%s;Server=%s;Service=%s;Database=%s;Protocol=olsoctcp;' .
+            'SINGLETHREADED=1;' .
+            'DELIMIDENT=y;', // enable double-quotes as escape character
             self::ODBC_DRIVER_NAME,
             $host,
             $serverName,
