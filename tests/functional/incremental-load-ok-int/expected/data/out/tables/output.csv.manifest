@@ -1,0 +1,38 @@
+{
+    "destination": "output",
+    "incremental": true,
+    "metadata": [
+        {
+            "key": "KBC.name",
+            "value": "incremental"
+        },
+        {
+            "key": "KBC.sanitizedName",
+            "value": "incremental"
+        },
+        {
+            "key": "KBC.schema",
+            "value": "%A"
+        },
+        {
+            "key": "KBC.type",
+            "value": "table"
+        }
+    ],
+    "column_metadata": {
+        "id": %A,
+        "int": %A,
+        "decimal": %A,
+        "text": %A,
+        "date": %A,
+        "datetime": %A
+    },
+    "columns": [
+        "id",
+        "int",
+        "decimal",
+        "text",
+        "date",
+        "datetime"
+    ]
+}
