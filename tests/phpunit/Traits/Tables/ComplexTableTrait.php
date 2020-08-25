@@ -2,41 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Keboola\DbExtractor\Tests\Traits;
+namespace Keboola\DbExtractor\Tests\Traits\Tables;
 
-use Keboola\DbExtractor\Metadata\MetadataProcessor;
+use Keboola\DbExtractor\Tests\Traits\CreateTableTrait;
 use function Keboola\Utils\sanitizeColumnName;
 
-trait CreateComplexTableTrait
+trait ComplexTableTrait
 {
+    use CreateTableTrait;
+
     /** @var resource ODBC connection resource */
     protected $connection;
 
     protected function createComplexTable(string $tableName): void
     {
-        $sql = [];
-        $sql[] = sprintf('CREATE TABLE %s (', $tableName);
-        $sql[] = $this->generateColumnsForCreateStmt();
-        $sql[] = ')';
-        odbc_exec($this->connection, implode(' ', $sql));
-    }
-
-    protected function generateColumnsForCreateStmt(): string
-    {
         $i = 0;
         $columns = [];
         foreach (array_keys($this->getColumnsDefinitions()) as $sqlStmt) {
             $colName = strtolower(sanitizeColumnName('col_' . $i . '_' . $sqlStmt));
-            $columns[] = $colName . ' ' . $sqlStmt;
+            $columns[$colName] = $sqlStmt;
             $i++;
         }
 
-        return implode(', ', $columns);
-    }
-
-    protected function getDefaultSchema(): string
-    {
-        return (string) getenv('DB_USER');
+        $this->createTable($tableName, $columns);
     }
 
     /**
@@ -45,7 +33,7 @@ trait CreateComplexTableTrait
      * - all valid data types in database - KEY
      * - the corresponding type in the KBC metadata - VALUE
      */
-    protected function getColumnsDefinitions(): array
+    public function getColumnsDefinitions(): array
     {
         // https://www.ibm.com/support/knowledgecenter/en/SSGU8G_12.1.0/com.ibm.sqlr.doc/ids_sqr_094.htm
         return [

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor\Tests\SyncActions;
 
-use Keboola\DbExtractor\Tests\Traits\CreateComplexTableTrait;
+use Keboola\DbExtractor\Tests\Traits\DefaultSchemaTrait;
+use Keboola\DbExtractor\Tests\Traits\Tables\ComplexTableTrait;
 use PHPUnit\Framework\Assert;
 use Keboola\DbExtractor\Tests\BaseTest;
 use Keboola\Component\JsonHelper;
@@ -12,7 +13,8 @@ use function Keboola\Utils\sanitizeColumnName;
 
 class GetTablesTest extends BaseTest
 {
-    use CreateComplexTableTrait;
+    use ComplexTableTrait;
+    use DefaultSchemaTrait;
 
     public function testGetTablesAllNoTable(): void
     {
