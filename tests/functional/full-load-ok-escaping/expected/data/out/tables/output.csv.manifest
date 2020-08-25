@@ -1,0 +1,30 @@
+{
+    "destination": "output",
+    "incremental": false,
+    "metadata": [
+        {
+            "key": "KBC.name",
+            "value": "escaping"
+        },
+        {
+            "key": "KBC.sanitizedName",
+            "value": "escaping"
+        },
+        {
+            "key": "KBC.schema",
+            "value": "%A"
+        },
+        {
+            "key": "KBC.type",
+            "value": "table"
+        }
+    ],
+    "column_metadata": {
+        "id": %A,
+        "value": %A
+    },
+    "columns": [
+        "id",
+        "value"
+    ]
+}

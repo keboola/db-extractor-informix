@@ -8,4 +8,5 @@ use Keboola\DbExtractor\Adapter\Query\DefaultQueryFactory;
 
 class OdbcQueryFactory extends DefaultQueryFactory
 {
+
 }

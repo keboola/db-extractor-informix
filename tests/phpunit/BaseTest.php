@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor\Tests;
 
+use Keboola\DbExtractor\Tests\Traits\RemoveAllTablesTrait;
 use Keboola\Temp\Temp;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
 abstract class BaseTest extends TestCase
 {
+    use RemoveAllTablesTrait;
+
     protected const ROOT_PATH = __DIR__ . '/../..';
 
     /** @var resource ODBC connection resource */
@@ -30,20 +33,6 @@ abstract class BaseTest extends TestCase
         parent::tearDown();
         $this->temp->remove();
         $this->removeAllTables();
-    }
-
-    protected function removeAllTables(): void
-    {
-        // Delete all tables, except sys tables
-        $sql = "SELECT tabname FROM SYSTABLES WHERE tabtype IN ('T', 'E', 'V') AND tabname NOT LIKE 'sys%'";
-        $stmt = odbc_exec($this->connection, $sql);
-        while (true) {
-            $row = odbc_fetch_array($stmt);
-            if (!$row) {
-                break;
-            }
-            odbc_exec($this->connection, sprintf('DROP TABLE %s', $row['tabname']));
-        }
     }
 
     protected function createAppProcess(array $config): Process

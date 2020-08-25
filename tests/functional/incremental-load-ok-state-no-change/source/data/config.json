@@ -1,0 +1,20 @@
+{
+  "parameters": {
+    "db": {
+      "host": "${DB_HOST}",
+      "serverName": "${DB_SERVER_NAME}",
+      "port": "${DB_PORT}",
+      "database": "${DB_DATABASE}",
+      "user": "${DB_USER}",
+      "#password": "${DB_PASSWORD}"
+    },
+    "outputTable": "output",
+    "table": {
+      "tableName": "incremental",
+      "schema": "${DEFAULT_SCHEMA}"
+    },
+    "incremental": true,
+    "incrementalFetchingColumn": "int",
+    "retries": 2
+  }
+}

@@ -9,9 +9,10 @@ use Keboola\DbExtractor\Extractor\OdbcConnection;
 use Keboola\DbExtractor\Metadata\OdbcMetadataProviderFactory;
 use Keboola\DbExtractor\OdbcDsnFactory;
 use Keboola\DbExtractor\TableResultFormat\Metadata\ValueObject\ColumnCollection;
-use Keboola\DbExtractor\Tests\Traits\CreateComplexTableTrait;
 use Keboola\DbExtractor\Tests\BaseTest;
-use Keboola\DbExtractor\Tests\Traits\CreatePkAndFkTablesTrait;
+use Keboola\DbExtractor\Tests\Traits\DefaultSchemaTrait;
+use Keboola\DbExtractor\Tests\Traits\Tables\ComplexTableTrait;
+use Keboola\DbExtractor\Tests\Traits\Tables\PkAndFkTablesTrait;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\DatabaseConfig;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\InputTable;
 use PHPUnit\Framework\Assert;
@@ -20,8 +21,9 @@ use function Keboola\Utils\sanitizeColumnName;
 
 class OdbcMetadataProviderTest extends BaseTest
 {
-    use CreateComplexTableTrait;
-    use CreatePkAndFkTablesTrait;
+    use ComplexTableTrait;
+    use PkAndFkTablesTrait;
+    use DefaultSchemaTrait;
 
     private MetadataProvider $metadataProvider;
 
