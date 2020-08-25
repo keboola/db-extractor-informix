@@ -22,12 +22,12 @@ class OdbcDbNode extends DbNode
     {
         // ServerName is additional connection parameter required by Informix
         // https://www.ibm.com/support/knowledgecenter/en/SSGU8G_12.1.0/com.ibm.adref.doc/ids_adr_0045.htm
-        $builder->scalarNode('serverName')->isRequired();
+        $builder->scalarNode('serverName')->cannotBeEmpty()->isRequired();
     }
 
     protected function addHostNode(NodeBuilder $builder): void
     {
-        $builder->scalarNode('host')->isRequired();
+        $builder->scalarNode('host')->cannotBeEmpty()->isRequired();
     }
 
     protected function addDatabaseNode(NodeBuilder $builder): void
@@ -37,6 +37,6 @@ class OdbcDbNode extends DbNode
 
     protected function addPortNode(NodeBuilder $builder): void
     {
-        $builder->scalarNode('port')->isRequired();
+        $builder->scalarNode('port')->cannotBeEmpty()->isRequired();
     }
 }
