@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Keboola\DbExtractor\Metadata\Query;
 
 /**
- * This class wraps an SQL statement and also a callback to get the unique identifier of the object (table / column).
+ * Wraps an SQL statement and also a callback to get the unique identifier of the object (table / column).
  */
 class TableMetadataQuery
 {

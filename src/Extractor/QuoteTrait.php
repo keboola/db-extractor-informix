@@ -6,9 +6,11 @@ namespace Keboola\DbExtractor\Extractor;
 
 trait QuoteTrait
 {
+    /**
+     * Database specific SQL quoting for values
+     */
     public function quote(string $str): string
     {
-        // Database specific SQL quoting for values
         return "'" . str_replace("'", "''", $str) . "'";
     }
 }

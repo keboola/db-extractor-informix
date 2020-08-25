@@ -9,9 +9,11 @@ use Keboola\DbExtractor\Adapter\ExportAdapter;
 use Keboola\DbExtractor\Adapter\ODBC\OdbcExportAdapter;
 use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
 use Keboola\DbExtractor\Exception\UserException;
+use Keboola\DbExtractor\Metadata\OdbcManifestSerializer;
 use Keboola\DbExtractor\Metadata\OdbcMetadataProviderFactory;
 use Keboola\DbExtractor\OdbcDsnFactory;
 use Keboola\DbExtractor\TableResultFormat\Exception\ColumnNotFoundException;
+use Keboola\DbExtractor\TableResultFormat\Metadata\Manifest\ManifestSerializer;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\DatabaseConfig;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\ExportConfig;
 
@@ -61,6 +63,11 @@ class OdbcExtractor extends BaseExtractor
     {
         $factory = new OdbcMetadataProviderFactory($this->connection, $this->getDatabaseConfig());
         return $factory->create();
+    }
+
+    protected function getManifestMetadataSerializer(): ManifestSerializer
+    {
+        return new OdbcManifestSerializer();
     }
 
     protected function validateIncrementalFetching(ExportConfig $exportConfig): void

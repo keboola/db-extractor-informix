@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor;
 
+use Psr\Log\LoggerInterface;
 use Keboola\DbExtractor\Exception\UserException;
 use Keboola\DbExtractorConfig\Configuration\GetTablesListFilterDefinition;
-use Psr\Log\LoggerInterface;
 use Keboola\DbExtractor\Configuration\OdbcDbNode;
 use Keboola\DbExtractorConfig\Configuration\ActionConfigRowDefinition;
 use Keboola\DbExtractorConfig\Configuration\ConfigRowDefinition;

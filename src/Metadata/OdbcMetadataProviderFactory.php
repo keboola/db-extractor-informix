@@ -25,7 +25,7 @@ class OdbcMetadataProviderFactory
         return new OdbcMetadataProvider(
             $this->connection,
             new MetadataQueryFactory($this->connection, $this->dbConfig),
-            new MetadataProcessor($this->dbConfig)
+            new OdbcMetadataProcessor($this->dbConfig)
         );
     }
 }
