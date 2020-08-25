@@ -1,12 +1,101 @@
-# my-component
+# Informix ODBC Extractor
 
-[![Build Status](https://travis-ci.com/keboola/my-component.svg?branch=master)](https://travis-ci.com/keboola/my-component)
+[![Build Status](https://travis-ci.com/keboola/db-extractor-informix.svg?branch=master)](https://travis-ci.com/keboola/db-extractor-informix)
 
-> Fill in description
+[KBC](https://www.keboola.com/product/) Docker app for extracting data from [IBM Informix](https://www.ibm.com/products/informix) database.
+
+See [Extractors for SQL Databases](https://help.keboola.com/components/extractors/database/sqldb/) for more documentation.
 
 # Usage
 
-> fill in usage instructions
+## Configuration
+
+The configuration `config.json` contains following properties in `parameters` key: 
+
+*Note:* `query` or `table` must be specified.
+
+*Note:* Informix requires, in addition to other extractors, `db.serverName` connection parameter.
+
+- `db` - object (required): Connection settings
+    - `host` - string (required): IP address or hostname of Apache Hive DB server
+    - **`serverName`** - string (required): Informix database server name, [read more](https://www.querytool.com/help/981.htm).
+    - `port` - integer (required): Server port (default port is `10000`)
+    - `user` - string (required): User with correct access rights
+    - `#password` - string (required): Password for given `user`
+    - `database` - string (required): Database to connect to
+    - `ssh` - object (optional): Settings for SSH tunnel
+        - `enabled` - bool (required):  Enables SSH tunnel
+        - `sshHost` - string (required): IP address or hostname of SSH server
+        - `sshPort` - integer (optional): SSH server port (default port is `22`)
+        - `localPort` - integer (required): SSH tunnel local port in Docker container (default `33006`)
+        - `user` - string (optional): SSH user (default same as `db.user`)
+        - `compression`  - bool (optional): Enables SSH tunnel compression (default `false`)
+        - `keys` - object (optional): SSH keys
+            - `public` - string (optional): Public SSH key
+            - `#private` - string (optional): Private SSH key
+- `query` - string (optional): SQL query whose output will be extracted
+- `table` - object (optional): Table whose will be extracted
+    - `tableName` - string (required)
+    - `schema` - string (required)
+- `columns` - array (optional): List of columns to export (default all columns)
+- `outputTable` - string (required): Name of the output table 
+- `incremental` - bool (optional):  Enables [Incremental Loading](https://help.keboola.com/storage/tables/#incremental-loading)
+- `incrementalFetchingColumn` - string (optional): Name of column for [Incremental Fetching](https://help.keboola.com/components/extractors/database/#incremental-fetching)
+- `incrementalFetchingLimit` - integer (optional): Max number of rows fetched per one run
+- `primaryKey` - string (optional): Sets primary key to specified column in output table
+- `retries` - integer (optional): Number of retries if an error occurred
+
+### Examples
+
+Full export:
+```json
+{
+  "parameters": {
+    "db": {
+      "host": "my-informix.com",
+      "serverName": "informix",
+      "port": "9088",
+      "database": "test",
+      "user": "informix",
+      "#password": "*****"
+    },
+    "outputTable": "output",
+    "table": {
+      "tableName": "simple",
+      "schema": "informix"
+    }
+  }
+}
+```
+
+Custom query:
+```json
+{
+  "parameters": {
+    "db": "...",
+    "outputTable": "output",
+    "query": "SELECT name, date, id FROM simple",
+    "primaryKey": ["id"]
+  }
+}
+```
+
+Incremental fetching + load only defined columns:
+```json
+{
+  "parameters": {
+    "db": "...",
+    "outputTable": "output",
+    "table": {
+      "tableName": "incremental",
+      "schema": "${DEFAULT_SCHEMA}"
+    },
+    "columns": ["id", "name", "datetime"],
+    "incremental": true,
+    "incrementalFetchingColumn": "datetime"
+  }
+}
+```
 
 ## Development
  
@@ -20,7 +109,7 @@ Clone this repository and init the workspace with following command:
 
 ```
 git clone https://github.com/keboola/db-extractor-informix
-cd my-component
+cd db-extractor-informix
 docker-compose build
 docker-compose run --rm dev composer install --no-scripts
 ```
