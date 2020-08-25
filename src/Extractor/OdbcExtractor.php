@@ -8,8 +8,10 @@ use InvalidArgumentException;
 use Keboola\DbExtractor\Adapter\ExportAdapter;
 use Keboola\DbExtractor\Adapter\ODBC\OdbcExportAdapter;
 use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
+use Keboola\DbExtractor\Exception\UserException;
 use Keboola\DbExtractor\Metadata\OdbcMetadataProviderFactory;
 use Keboola\DbExtractor\OdbcDsnFactory;
+use Keboola\DbExtractor\TableResultFormat\Exception\ColumnNotFoundException;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\DatabaseConfig;
 use Keboola\DbExtractorConfig\Configuration\ValueObject\ExportConfig;
 
@@ -59,6 +61,28 @@ class OdbcExtractor extends BaseExtractor
     {
         $factory = new OdbcMetadataProviderFactory($this->connection, $this->getDatabaseConfig());
         return $factory->create();
+    }
+
+    protected function validateIncrementalFetching(ExportConfig $exportConfig): void
+    {
+        // Check that incremental fetching column exists
+        try {
+            $this
+                ->getMetadataProvider()
+                ->getTable($exportConfig->getTable())
+                ->getColumns()
+                ->getByName($exportConfig->getIncrementalFetchingColumn());
+        } catch (ColumnNotFoundException $e) {
+            throw new UserException(
+                sprintf(
+                    'Column "%s" specified for incremental fetching was not found in the table.',
+                    $exportConfig->getIncrementalFetchingColumn()
+                )
+            );
+        }
+
+        // Incremental loading should work with all available types.
+        // If you need to restrict it, then validation should be added HERE.
     }
 
     protected function getMaxOfIncrementalFetchingColumn(ExportConfig $exportConfig): ?string
