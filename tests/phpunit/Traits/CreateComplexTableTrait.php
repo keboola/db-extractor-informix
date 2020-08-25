@@ -36,7 +36,7 @@ trait CreateComplexTableTrait
 
     protected function getDefaultSchema(): string
     {
-        return (string) getenv('DB_DATABASE');
+        return (string) getenv('DB_USER');
     }
 
     /**

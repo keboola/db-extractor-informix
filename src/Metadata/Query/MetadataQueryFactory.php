@@ -35,7 +35,7 @@ class MetadataQueryFactory
         // Doc: https://www.ibm.com/support/knowledgecenter/en/SSGU8G_14.1.0/com.ibm.sqlr.doc/ids_sqr_072.htm
         // Note: Each database has own SYSTABLES table, so all returned tables are from current database.
         $sql = [];
-        $sql[] = 'SELECT tabid,tabname,tabtype';
+        $sql[] = 'SELECT tabid,tabname,tabtype,owner';
         $sql[] = 'FROM SYSTABLES';
 
         // Only tables and views
@@ -92,7 +92,7 @@ class MetadataQueryFactory
         // Note: Each database has own SYSCONSTRAINTS table, so all returned tables/columns are from current database.
         $sql = [];
         $sql[] = 'SELECT st.tabid, st.tabname, sn.constrname, sn.constrtype, sc.colname,';
-        $sql[] = 'fk_st.tabname AS reftab, fk_sc.colname as refcolname';
+        $sql[] = 'fk_st.tabname AS reftab, fk_st.owner AS reftabowner, fk_sc.colname as refcolname';
         $sql[] = 'FROM SYSCONSTRAINTS sn';
 
         // Join column and table name
@@ -138,31 +138,14 @@ class MetadataQueryFactory
 
     protected function createWhitelistWhereStmt(array $whitelist): string
     {
-        $this->validateWhitelist($whitelist);
-        $quotedTableNames = array_map(
-            fn(InputTable  $table) => $this->connection->quote($table->getName()),
+        $whitelistStmts = array_map(
+            fn(InputTable  $table) => sprintf(
+                '(tabname = %s AND owner = %s)',
+                $this->connection->quote($table->getName()),
+                $this->connection->quote($table->getSchema())
+            ),
             $whitelist
         );
-        return 'tabname IN (' . implode(', ', $quotedTableNames) . ')';
-    }
-
-    /**
-     * @param array|InputTable[] $whitelist
-     */
-    protected function validateWhitelist(array $whitelist): void
-    {
-        foreach ($whitelist as $table) {
-            // Schemas in Informix DB have different meanings than in other databases.
-            // They are only used to set permissions.
-            // https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0483.htm
-            // Therefore, we use the name of the database as a schema (as if schemas did not exist at all).
-            if ($table->getSchema() !== $this->dbConfig->getDatabase()) {
-                throw new InvalidStateException(sprintf(
-                    'Unexpected schema "%s" in tables whitelist, expected "%s".',
-                    $table->getSchema(),
-                    $this->dbConfig->getDatabase()
-                ));
-            }
-        }
+        return '(' . implode('OR', $whitelistStmts) . ')';
     }
 }

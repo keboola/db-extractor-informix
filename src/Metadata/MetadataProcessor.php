@@ -29,11 +29,8 @@ class MetadataProcessor
             ->setName($tableResult['tabname'])
             ->setType(strtoupper($tableResult['tabtype']) === 'V' ? 'view' : 'table');
 
-        // Schemas in Informix DB have different meanings than in other databases.
-        // They are only used to set permissions.
-        // https://www.ibm.com/support/knowledgecenter/SSGU8G_14.1.0/com.ibm.sqls.doc/ids_sqs_0483.htm
-        // Therefore, we use the name of the database as a schema (as if schemas did not exist at all).
-        $builder->setSchema($this->dbConfig->getDatabase());
+        // In informix owner = schema
+        $builder->setSchema($tableResult['owner']);
     }
 
     public function processColumnMetadata(ColumnBuilder $builder, array $columnResult): void
@@ -75,7 +72,7 @@ class MetadataProcessor
                 ->addForeignKey()
                 ->setName($constraintResult['colname'])
                 ->setRefColumn($constraintResult['refcolname'])
-                ->setRefSchema($this->dbConfig->getDatabase())
+                ->setRefSchema($constraintResult['reftabowner'])
                 ->setRefTable($constraintResult['reftab']);
         }
     }
