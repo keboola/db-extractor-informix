@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d58c7ecca952194f8b072db1c9ed41ab",
+    "content-hash": "6fd4f43fe4a5efc024a3338c640f3b03",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -161,16 +161,16 @@
         },
         {
             "name": "keboola/db-extractor-adapter",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/keboola/db-extractor-adapter.git",
-                "reference": "2dbcce8a2d7066ba4d9483fe35c45bd5fea521a9"
+                "reference": "a7addc905e40e27bea2b5d9375617112c8998eee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/keboola/db-extractor-adapter/zipball/2dbcce8a2d7066ba4d9483fe35c45bd5fea521a9",
-                "reference": "2dbcce8a2d7066ba4d9483fe35c45bd5fea521a9",
+                "url": "https://api.github.com/repos/keboola/db-extractor-adapter/zipball/a7addc905e40e27bea2b5d9375617112c8998eee",
+                "reference": "a7addc905e40e27bea2b5d9375617112c8998eee",
                 "shasum": ""
             },
             "require": {
@@ -210,20 +210,20 @@
                 }
             ],
             "description": "Set of connection adapters for DB extractors.",
-            "time": "2020-08-25T07:08:17+00:00"
+            "time": "2020-08-26T14:10:55+00:00"
         },
         {
             "name": "keboola/db-extractor-common",
-            "version": "14.0.2",
+            "version": "14.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/keboola/db-extractor-common.git",
-                "reference": "fa51be876002dd97433e1ab4224138f646b157af"
+                "reference": "9f8283fb0ba47e0363a60931e8b878902fd97802"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/keboola/db-extractor-common/zipball/fa51be876002dd97433e1ab4224138f646b157af",
-                "reference": "fa51be876002dd97433e1ab4224138f646b157af",
+                "url": "https://api.github.com/repos/keboola/db-extractor-common/zipball/9f8283fb0ba47e0363a60931e8b878902fd97802",
+                "reference": "9f8283fb0ba47e0363a60931e8b878902fd97802",
                 "shasum": ""
             },
             "require": {
@@ -271,7 +271,7 @@
                 }
             ],
             "description": "Common library from Keboola Database Extractors",
-            "time": "2020-08-25T07:08:33+00:00"
+            "time": "2020-08-26T14:14:46+00:00"
         },
         {
             "name": "keboola/db-extractor-config",
