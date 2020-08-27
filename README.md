@@ -14,11 +14,13 @@ The configuration `config.json` contains following properties in `parameters` ke
 
 *Note:* `query` or `table` must be specified.
 
-*Note:* Informix requires, in addition to other extractors, `db.serverName` connection parameter.
+*Note:* Parameters `db.serverName`, `db.protocol`, `db.dbLocale` are in addition to other extractors.
 
 - `db` - object (required): Connection settings
     - `host` - string (required): IP address or hostname of Apache Hive DB server
     - **`serverName`** - string (required): Informix database server name, [read more](https://www.querytool.com/help/981.htm).
+    - **`protocol`** - enum (optional): protocol `onsoctcp` or `onsocssl`, default `onsoctcp`, [read more](https://www.ibm.com/support/knowledgecenter/en/SSGU8G_11.50.0/com.ibm.admin.doc/ids_admin_0161.htm).
+    - **`dbLocale`** - string (optional): Informix `DB_LOCALE`, default `en_US.utf8`.
     - `port` - integer (required): Server port (default port is `10000`)
     - `user` - string (required): User with correct access rights
     - `#password` - string (required): Password for given `user`
