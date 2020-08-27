@@ -11,6 +11,8 @@ services:
       DB_USER: informix
       DB_PASSWORD: in4mix
       DB_HOST: db
+      DB_PROTOCOL: onsoctcp
+      DB_LOCALE_VALUE: en_us.8859-1 # cannot be "DB_LOCALE" -> it interferes with ODBC
       DB_PORT: 9088
       DB_DATABASE: test # see create.sql
       DB_SERVER_NAME: informix

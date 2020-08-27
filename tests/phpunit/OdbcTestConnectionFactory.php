@@ -5,22 +5,44 @@ declare(strict_types=1);
 namespace Keboola\DbExtractor\Tests;
 
 use ErrorException;
+use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
 use Keboola\DbExtractor\OdbcDsnFactory;
 use RuntimeException;
 
 class OdbcTestConnectionFactory
 {
-    /** @return resource */
-    public static function create()
+    public static function getDbConfigArray(): array
     {
+        return [
+            'user' => (string) getenv('DB_USER'),
+            '#password' => (string) getenv('DB_PASSWORD'),
+            'host' => (string) getenv('DB_HOST'),
+            'serverName' => (string) getenv('DB_SERVER_NAME'),
+            'protocol' => (string) getenv('DB_PROTOCOL'),
+            'dbLocale' => (string) getenv('DB_LOCALE_VALUE'),
+            'port' => (string) getenv('DB_PORT'),
+            'database' => (string) getenv('DB_DATABASE'),
+        ];
+    }
+
+    public static function createDbConfig(): OdbcDatabaseConfig
+    {
+        return OdbcDatabaseConfig::fromArray(self::getDbConfigArray());
+    }
+
+    public static function createDsn(): string
+    {
+        $dbConfig = self::createDbConfig();
         $dsnFactory = new OdbcDsnFactory();
-        $dsn = $dsnFactory->create(
-            (string) getenv('DB_HOST'),
-            (string) getenv('DB_SERVER_NAME'),
-            (string) getenv('DB_PORT'),
-            (string) getenv('DB_DATABASE')
-        );
-        $resource = @odbc_connect($dsn, (string) getenv('DB_USER'), (string) getenv('DB_PASSWORD'));
+        return $dsnFactory->create($dbConfig);
+    }
+
+    /** @return resource */
+    public static function createConnection()
+    {
+        $dsn = self::createDsn();
+        $dbConfig = self::createDbConfig();
+        $resource = @odbc_connect($dsn, $dbConfig->getUsername(), $dbConfig->getPassword());
         if ($resource === false) {
             throw new ErrorException(odbc_errormsg() . ' ' . odbc_error());
         }
@@ -38,7 +60,7 @@ class OdbcTestConnectionFactory
             $i++;
 
             try {
-                self::create();
+                self::createConnection();
                 echo " OK\n";
                 break;
             } catch (ErrorException $e) {

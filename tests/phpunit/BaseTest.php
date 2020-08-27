@@ -23,7 +23,7 @@ abstract class BaseTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->connection = OdbcTestConnectionFactory::create();
+        $this->connection = OdbcTestConnectionFactory::createConnection();
         $this->temp = new Temp();
         $this->removeAllTables();
     }
@@ -49,14 +49,7 @@ abstract class BaseTest extends TestCase
 
     protected function getConfigDbNode(): array
     {
-        return [
-            'host' => (string) getenv('DB_HOST'),
-            'serverName' => (string) getenv('DB_SERVER_NAME'),
-            'port' => (string) getenv('DB_PORT'),
-            'database' => (string) getenv('DB_DATABASE'),
-            'user' => (string) getenv('DB_USER'),
-            '#password' => (string) getenv('DB_PASSWORD'),
-        ];
+        return OdbcTestConnectionFactory::getDbConfigArray();
     }
 
     protected function getConfig(): array

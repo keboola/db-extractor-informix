@@ -33,12 +33,7 @@ class OdbcExtractor extends BaseExtractor
         }
 
         $dsnFactory = new OdbcDsnFactory();
-        $dsn = $dsnFactory->create(
-            $dbConfig->getHost(),
-            $dbConfig->getServerName(),
-            $dbConfig->getPort(),
-            $dbConfig->getDatabase(),
-        );
+        $dsn = $dsnFactory->create($dbConfig);
 
         $connectRetries = $this->isSyncAction() ? 1 : OdbcConnection::CONNECT_DEFAULT_MAX_RETRIES;
         $this->connection = new OdbcConnection(
