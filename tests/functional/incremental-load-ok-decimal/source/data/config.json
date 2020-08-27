@@ -4,6 +4,7 @@
       "host": "${DB_HOST}",
       "serverName": "${DB_SERVER_NAME}",
       "port": "${DB_PORT}",
+      "dbLocale": "${DB_LOCALE_VALUE}",
       "database": "${DB_DATABASE}",
       "user": "${DB_USER}",
       "#password": "${DB_PASSWORD}"

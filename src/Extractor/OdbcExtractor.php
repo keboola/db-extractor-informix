@@ -26,24 +26,23 @@ class OdbcExtractor extends BaseExtractor
         $this->connection->testConnection();
     }
 
-    protected function createConnection(DatabaseConfig $databaseConfig): void
+    protected function createConnection(DatabaseConfig $dbConfig): void
     {
-        if (!$databaseConfig instanceof OdbcDatabaseConfig) {
+        if (!$dbConfig instanceof OdbcDatabaseConfig) {
             throw new InvalidArgumentException('Expected OdbcDatabaseConfig.');
         }
 
         $dsnFactory = new OdbcDsnFactory();
-        $dsn = $dsnFactory->create(
-            $databaseConfig->getHost(),
-            $databaseConfig->getServerName(),
-            $databaseConfig->getPort(),
-            $databaseConfig->getDatabase(),
-        );
+        $dsn = $dsnFactory->create($dbConfig);
+
+        $connectRetries = $this->isSyncAction() ? 1 : OdbcConnection::CONNECT_DEFAULT_MAX_RETRIES;
         $this->connection = new OdbcConnection(
             $this->logger,
             $dsn,
-            $databaseConfig->getUsername(),
-            $databaseConfig->getPassword()
+            $dbConfig->getUsername(),
+            $dbConfig->getPassword(),
+            null,
+            $connectRetries
         );
     }
 

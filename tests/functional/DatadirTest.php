@@ -52,7 +52,7 @@ class DatadirTest extends AbstractDatadirTestCase
         $this->testTempDir = $this->temp->getTmpFolder();
 
         // Create service connection
-        $this->connection = OdbcTestConnectionFactory::create();
+        $this->connection = OdbcTestConnectionFactory::createConnection();
 
         // Load setUp.php file - used to init database state
         $setUpPhpFile = $this->testProjectDir . '/setUp.php';

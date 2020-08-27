@@ -10,6 +10,7 @@ use Keboola\DbExtractor\Metadata\OdbcMetadataProviderFactory;
 use Keboola\DbExtractor\OdbcDsnFactory;
 use Keboola\DbExtractor\TableResultFormat\Metadata\ValueObject\ColumnCollection;
 use Keboola\DbExtractor\Tests\BaseTest;
+use Keboola\DbExtractor\Tests\OdbcTestConnectionFactory;
 use Keboola\DbExtractor\Tests\Traits\DefaultSchemaTrait;
 use Keboola\DbExtractor\Tests\Traits\Tables\ComplexTableTrait;
 use Keboola\DbExtractor\Tests\Traits\Tables\PkAndFkTablesTrait;
@@ -31,18 +32,15 @@ class OdbcMetadataProviderTest extends BaseTest
     {
         parent::setUp();
         $logger = new NullLogger();
-        $dsnFactory = new OdbcDsnFactory();
-        $dsn = $dsnFactory->create(
-            (string) getenv('DB_HOST'),
-            (string) getenv('DB_SERVER_NAME'),
-            (string) getenv('DB_PORT'),
-            (string) getenv('DB_DATABASE')
-        );
+        $dsn = OdbcTestConnectionFactory::createDsn();
+        $retries = 1;
         $connection = new OdbcConnection(
             $logger,
             $dsn,
             (string) getenv('DB_USER'),
-            (string) getenv('DB_PASSWORD')
+            (string) getenv('DB_PASSWORD'),
+            null,
+            $retries
         );
 
         $metadataProviderFactory = new OdbcMetadataProviderFactory(
