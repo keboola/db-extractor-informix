@@ -8,7 +8,7 @@ use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
 
 class OdbcDsnFactory
 {
-    public const ODBC_DRIVER_NAME = 'IBM Informix Informix ODBC DRIVER';
+    public const ODBC_DRIVER_NAME = 'IBM DRIVER';
 
     public function create(OdbcDatabaseConfig $dbConfig): string
     {
@@ -20,7 +20,7 @@ class OdbcDsnFactory
             $dbConfig->getServerName(),
             $dbConfig->getPort(),
             $dbConfig->getDatabase(),
-            $dbConfig->getProtocol(),
+            'TCPIP',
             $dbConfig->getDbLocale(),
             // Solution of "character conversion error":
             // specify explicitly for Client Locale the same locate as for Database Locale
