@@ -22,9 +22,8 @@ class OdbcDsnFactory
             $dbConfig->getDatabase(),
             $dbConfig->getProtocol(),
             $dbConfig->getDbLocale(),
-            // Solution of "character conversion error":
-            // specify explicitly for Client Locale the same locate as for Database Locale
-            $dbConfig->getDbLocale()
+            // Client Locale us UTF-8 version of the Database Locale
+            $this->getClientLocale($dbConfig)
         );
 
         // Enable double-quotes as escape character
@@ -35,5 +34,18 @@ class OdbcDsnFactory
         $dsn .= 'SINGLETHREADED=1;';
 
         return $dsn;
+    }
+
+    public function getClientLocale(OdbcDatabaseConfig $dbConfig): string
+    {
+        // Return UTF-8 variant of the db locale, eg. 'en_US.UTF8' -> 'en_us.8859-1'
+        $dbLocale = $dbConfig->getDbLocale();
+        $dbLocaleParts = explode('.', $dbLocale);
+
+        if (count($dbLocaleParts) === 2) {
+            return $dbLocaleParts[0] . '.UTF8';
+        }
+
+        return $dbLocale;
     }
 }
