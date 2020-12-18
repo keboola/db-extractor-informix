@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         unzip \
         ssh \
         libncurses5 \
+        libicu-dev \
         unixodbc \
         unixodbc-dev \
 	&& rm -r /var/lib/apt/lists/* \
@@ -34,6 +35,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV LANGUAGE=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
+
+# INTL
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-install intl
 
 # PHP ODBC
 # https://github.com/docker-library/php/issues/103#issuecomment-353674490

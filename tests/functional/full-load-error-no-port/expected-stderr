@@ -1,1 +1,1 @@
-%AThe child node "port" at path "root.parameters.db" must be configured.%A
+%AThe child config "port" under "root.parameters.db" must be configured.%A

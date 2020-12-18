@@ -13,7 +13,7 @@
         "ext-odbc": "*",
         "keboola/php-component": "^8.1",
         "keboola/db-extractor-common": "^14.0.4",
-        "keboola/db-extractor-adapter": "^1.0.3",
+        "keboola/db-extractor-adapter": "^1.2",
         "keboola/db-extractor-config": "^1.4.7",
         "keboola/db-extractor-table-format": "^3.1.6"
     },
