@@ -40,7 +40,7 @@ class OdbcConnection extends \Keboola\DbExtractor\Adapter\ODBC\OdbcConnection
             throw new OdbcException(odbc_errormsg($this->connection) . ' ' . odbc_error($this->connection));
         }
 
-        odbc_binmode($stmt, ODBC_BINMODE_PASSTHRU);
+        odbc_binmode($stmt, ODBC_BINMODE_CONVERT);
         odbc_longreadlen($stmt, 65536);
         return new OdbcQueryResult($stmt);
     }
