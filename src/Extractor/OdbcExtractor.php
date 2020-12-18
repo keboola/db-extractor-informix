@@ -49,6 +49,7 @@ class OdbcExtractor extends BaseExtractor
 
     protected function createExportAdapter(): ExportAdapter
     {
+        ini_set('odbc.defaultlrl', '65536');
         $queryFactory = new OdbcQueryFactory($this->state);
         $resultWriter = new DefaultResultWriter($this->state);
         $resultWriter->setIgnoreInvalidUtf8();
