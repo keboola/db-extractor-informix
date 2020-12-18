@@ -31,7 +31,7 @@ class OdbcDsnFactory
 
         // PHP is single threaded, it should be faster
         // https://www.ibm.com/support/knowledgecenter/SSGU8G_12.1.0/com.ibm.odbc.doc/ids_odbc_046.htm
-        $dsn .= 'SINGLETHREADED=1;';
+        //$dsn .= 'SINGLETHREADED=1;';
 
         return $dsn;
     }

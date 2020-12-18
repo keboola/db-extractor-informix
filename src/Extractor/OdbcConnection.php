@@ -14,6 +14,12 @@ class OdbcConnection extends \Keboola\DbExtractor\Adapter\ODBC\OdbcConnection
     use QuoteTrait;
     use QuoteIdentifierTrait;
 
+    protected function connect(): void
+    {
+        parent::connect();
+        ini_set('odbc.allow_persistent', '0');
+    }
+
     public function testConnection(): void
     {
         // SELECT 1 is not working in some Informix databases
