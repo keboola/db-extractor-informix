@@ -7,6 +7,7 @@ namespace Keboola\DbExtractor\Extractor;
 use InvalidArgumentException;
 use Keboola\DbExtractor\Adapter\ExportAdapter;
 use Keboola\DbExtractor\Adapter\ODBC\OdbcExportAdapter;
+use Keboola\DbExtractor\Adapter\ResultWriter\DefaultResultWriter;
 use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
 use Keboola\DbExtractor\Exception\UserException;
 use Keboola\DbExtractor\Metadata\OdbcManifestSerializer;
@@ -49,10 +50,13 @@ class OdbcExtractor extends BaseExtractor
     protected function createExportAdapter(): ExportAdapter
     {
         $queryFactory = new OdbcQueryFactory($this->state);
+        $resultWriter = new DefaultResultWriter($this->state);
+        $resultWriter->setIgnoreInvalidUtf8();
         return new OdbcExportAdapter(
             $this->logger,
             $this->connection,
             $queryFactory,
+            $resultWriter,
             $this->dataDir,
             $this->state
         );

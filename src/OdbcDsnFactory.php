@@ -38,7 +38,7 @@ class OdbcDsnFactory
 
     public function getClientLocale(OdbcDatabaseConfig $dbConfig): string
     {
-        // Return UTF-8 variant of the db locale, eg. 'en_US.UTF8' -> 'en_us.8859-1'
+        // Return UTF-8 variant of the db locale, eg. 'en_us.8859-1' -> 'en_US.UTF8'
         $dbLocale = $dbConfig->getDbLocale();
         $dbLocaleParts = explode('.', $dbLocale);
 
