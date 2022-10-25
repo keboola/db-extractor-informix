@@ -1,7 +1,5 @@
 # Informix ODBC Extractor
 
-[![Build Status](https://travis-ci.com/keboola/db-extractor-informix.svg?branch=master)](https://travis-ci.com/keboola/db-extractor-informix)
-
 [KBC](https://www.keboola.com/product/) Docker app for extracting data from [IBM Informix](https://www.ibm.com/products/informix) database.
 
 See [Extractors for SQL Databases](https://help.keboola.com/components/extractors/database/sqldb/) for more documentation.
