@@ -18,6 +18,7 @@ class OdbcDbNode extends DbNode
         $this->addServerNameNode($builder);
         $this->addProtocol($builder);
         $this->addDbLocale($builder);
+        $this->addQueryTimeoutNode($builder);
     }
 
     protected function addServerNameNode(NodeBuilder $builder): void
@@ -56,5 +57,10 @@ class OdbcDbNode extends DbNode
     protected function addPortNode(NodeBuilder $builder): void
     {
         $builder->scalarNode('port')->cannotBeEmpty()->isRequired();
+    }
+
+    protected function addQueryTimeoutNode(NodeBuilder $builder): void
+    {
+        $builder->scalarNode('queryTimeout');
     }
 }

@@ -20,6 +20,8 @@ class OdbcDatabaseConfig extends DatabaseConfig
 
     private string $dbLocale;
 
+    private ?int $queryTimeout;
+
     public static function fromArray(array $data): self
     {
         return new self(
@@ -31,7 +33,8 @@ class OdbcDatabaseConfig extends DatabaseConfig
             $data['user'],
             $data['#password'],
             $data['database'] ?? null,
-            $data['schema'] ?? null
+            $data['schema'] ?? null,
+            $data['queryTimeout'] ?? null
         );
     }
 
@@ -44,12 +47,14 @@ class OdbcDatabaseConfig extends DatabaseConfig
         string $username,
         string $password,
         ?string $database,
-        ?string $schema
+        ?string $schema,
+        ?int $queryTimeout
     ) {
         parent::__construct($host, $port, $username, $password, $database, $schema, null);
         $this->serverName = $serverName;
         $this->protocol = $protocol;
         $this->dbLocale = $dbLocale;
+        $this->queryTimeout = $queryTimeout;
     }
 
     public function getServerName(): string
@@ -65,5 +70,10 @@ class OdbcDatabaseConfig extends DatabaseConfig
     public function getDbLocale(): string
     {
         return $this->dbLocale;
+    }
+
+    public function getQueryTimeout(): ?int
+    {
+        return $this->queryTimeout;
     }
 }

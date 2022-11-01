@@ -43,7 +43,10 @@ class OdbcExtractor extends BaseExtractor
             $dbConfig->getUsername(),
             $dbConfig->getPassword(),
             null,
-            $connectRetries
+            $connectRetries,
+            SQL_CURSOR_FORWARD_ONLY,
+            SQL_CUR_USE_DRIVER,
+            $dbConfig->getQueryTimeout()
         );
     }
 
