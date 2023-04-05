@@ -1,1 +1,1 @@
-Connection failed: 'Error connecting to DB: %ACannot connect to database server%A'%A
+Error connecting to DB: [Informix][Informix ODBC Driver][Informix]Cannot connect to database server%A

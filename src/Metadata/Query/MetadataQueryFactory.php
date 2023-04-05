@@ -139,7 +139,7 @@ class MetadataQueryFactory
     protected function createWhitelistWhereStmt(array $whitelist): string
     {
         $whitelistStmts = array_map(
-            fn(InputTable  $table) => sprintf(
+            fn(InputTable $table) => sprintf(
                 '(tabname = %s AND owner = %s)',
                 $this->connection->quote($table->getName()),
                 $this->connection->quote($table->getSchema())

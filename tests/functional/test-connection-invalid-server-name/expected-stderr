@@ -1,1 +1,1 @@
-Connection failed: 'Error connecting to DB: %AINFORMIXSERVER does not match either DBSERVERNAME or DBSERVERALIASES.%A'%A
+Error connecting to DB: [Informix][Informix ODBC Driver][Informix]INFORMIXSERVER does not match either DBSERVERNAME or DBSERVERALIASES.%A

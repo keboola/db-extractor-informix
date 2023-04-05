@@ -50,7 +50,7 @@ class OdbcDatabaseConfig extends DatabaseConfig
         ?string $schema,
         ?int $queryTimeout
     ) {
-        parent::__construct($host, $port, $username, $password, $database, $schema, null);
+        parent::__construct($host, $port, $username, $password, $database, $schema, null, []);
         $this->serverName = $serverName;
         $this->protocol = $protocol;
         $this->dbLocale = $dbLocale;

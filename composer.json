@@ -11,10 +11,10 @@
     "require": {
         "php": "^7.4",
         "ext-odbc": "*",
-        "keboola/php-component": "^8.1",
-        "keboola/db-extractor-common": "^14.0.4",
-        "keboola/db-extractor-adapter": "^1.2",
-        "keboola/db-extractor-config": "^1.4.7",
+        "keboola/php-component": "^9.3",
+        "keboola/db-extractor-common": "^16.1",
+        "keboola/db-extractor-adapter": "^1.10",
+        "keboola/db-extractor-config": "^1.12",
         "keboola/db-extractor-table-format": "^3.1.6"
     },
     "require-dev": {
@@ -64,6 +64,9 @@
     },
     "config": {
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }

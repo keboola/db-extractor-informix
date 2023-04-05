@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor\Tests\Traits;
 
-use Throwable;
 use Keboola\DbExtractor\Adapter\Exception\OdbcException;
 use Keboola\DbExtractor\Extractor\QuoteIdentifierTrait;
 use Keboola\DbExtractor\Extractor\QuoteTrait;
+use Throwable;
 
 trait InsertRowsTrait
 {

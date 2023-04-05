@@ -1,4 +1,4 @@
 Creating SSH tunnel to 'sshproxy' on local port '33006'
 Creating ODBC connection to %A127.0.0.1%A33006%A
 Exporting to "output".
-Extractor finished successfully.
+Exported "3" rows to "output".
