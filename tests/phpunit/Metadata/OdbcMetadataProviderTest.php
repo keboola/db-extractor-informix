@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor\Tests\Metadata;
 
-use Keboola\DbExtractor\Extractor\MetadataProvider;
-use Keboola\DbExtractor\Extractor\OdbcConnection;
+use Keboola\DbExtractor\Adapter\Metadata\MetadataProvider;
+use Keboola\DbExtractor\Extractor\InformixOdbcConnection;
 use Keboola\DbExtractor\Metadata\OdbcMetadataProviderFactory;
-use Keboola\DbExtractor\OdbcDsnFactory;
 use Keboola\DbExtractor\TableResultFormat\Metadata\ValueObject\ColumnCollection;
 use Keboola\DbExtractor\Tests\BaseTest;
 use Keboola\DbExtractor\Tests\OdbcTestConnectionFactory;
@@ -34,7 +33,7 @@ class OdbcMetadataProviderTest extends BaseTest
         $logger = new NullLogger();
         $dsn = OdbcTestConnectionFactory::createDsn();
         $retries = 1;
-        $connection = new OdbcConnection(
+        $connection = new InformixOdbcConnection(
             $logger,
             $dsn,
             (string) getenv('DB_USER'),

@@ -1,0 +1,248 @@
+{
+    "destination": "output",
+    "incremental": true,
+    "metadata": [
+        {
+            "key": "KBC.name",
+            "value": "incremental"
+        },
+        {
+            "key": "KBC.sanitizedName",
+            "value": "incremental"
+        },
+        {
+            "key": "KBC.schema",
+            "value": "informix"
+        },
+        {
+            "key": "KBC.type",
+            "value": "table"
+        }
+    ],
+    "column_metadata": {
+        "id": [
+            {
+                "key": "KBC.datatype.type",
+                "value": "INTEGER"
+            },
+            {
+                "key": "KBC.datatype.nullable",
+                "value": false
+            },
+            {
+                "key": "KBC.datatype.basetype",
+                "value": "INTEGER"
+            },
+            {
+                "key": "KBC.sourceName",
+                "value": "id"
+            },
+            {
+                "key": "KBC.sanitizedName",
+                "value": "id"
+            },
+            {
+                "key": "KBC.primaryKey",
+                "value": true
+            },
+            {
+                "key": "KBC.uniqueKey",
+                "value": false
+            },
+            {
+                "key": "KBC.ordinalPosition",
+                "value": 1
+            },
+            {
+                "key": "KBC.constraintName",
+                "value": "%A"
+            }
+        ],
+        "int": [
+            {
+                "key": "KBC.datatype.type",
+                "value": "INTEGER"
+            },
+            {
+                "key": "KBC.datatype.nullable",
+                "value": true
+            },
+            {
+                "key": "KBC.datatype.basetype",
+                "value": "INTEGER"
+            },
+            {
+                "key": "KBC.sourceName",
+                "value": "int"
+            },
+            {
+                "key": "KBC.sanitizedName",
+                "value": "int"
+            },
+            {
+                "key": "KBC.primaryKey",
+                "value": false
+            },
+            {
+                "key": "KBC.uniqueKey",
+                "value": false
+            },
+            {
+                "key": "KBC.ordinalPosition",
+                "value": 2
+            }
+        ],
+        "decimal": [
+            {
+                "key": "KBC.datatype.type",
+                "value": "DECIMAL"
+            },
+            {
+                "key": "KBC.datatype.nullable",
+                "value": true
+            },
+            {
+                "key": "KBC.datatype.basetype",
+                "value": "NUMERIC"
+            },
+            {
+                "key": "KBC.datatype.length",
+                "value": "16,255"
+            },
+            {
+                "key": "KBC.sourceName",
+                "value": "decimal"
+            },
+            {
+                "key": "KBC.sanitizedName",
+                "value": "decimal"
+            },
+            {
+                "key": "KBC.primaryKey",
+                "value": false
+            },
+            {
+                "key": "KBC.uniqueKey",
+                "value": false
+            },
+            {
+                "key": "KBC.ordinalPosition",
+                "value": 3
+            }
+        ],
+        "text": [
+            {
+                "key": "KBC.datatype.type",
+                "value": "NVARCHAR"
+            },
+            {
+                "key": "KBC.datatype.nullable",
+                "value": true
+            },
+            {
+                "key": "KBC.datatype.basetype",
+                "value": "STRING"
+            },
+            {
+                "key": "KBC.datatype.length",
+                "value": "255"
+            },
+            {
+                "key": "KBC.sourceName",
+                "value": "text"
+            },
+            {
+                "key": "KBC.sanitizedName",
+                "value": "text"
+            },
+            {
+                "key": "KBC.primaryKey",
+                "value": false
+            },
+            {
+                "key": "KBC.uniqueKey",
+                "value": false
+            },
+            {
+                "key": "KBC.ordinalPosition",
+                "value": 4
+            }
+        ],
+        "date": [
+            {
+                "key": "KBC.datatype.type",
+                "value": "DATE"
+            },
+            {
+                "key": "KBC.datatype.nullable",
+                "value": true
+            },
+            {
+                "key": "KBC.datatype.basetype",
+                "value": "DATE"
+            },
+            {
+                "key": "KBC.sourceName",
+                "value": "date"
+            },
+            {
+                "key": "KBC.sanitizedName",
+                "value": "date"
+            },
+            {
+                "key": "KBC.primaryKey",
+                "value": false
+            },
+            {
+                "key": "KBC.uniqueKey",
+                "value": false
+            },
+            {
+                "key": "KBC.ordinalPosition",
+                "value": 5
+            }
+        ],
+        "datetime": [
+            {
+                "key": "KBC.datatype.type",
+                "value": "DATETIME"
+            },
+            {
+                "key": "KBC.datatype.nullable",
+                "value": true
+            },
+            {
+                "key": "KBC.datatype.basetype",
+                "value": "TIMESTAMP"
+            },
+            {
+                "key": "KBC.sourceName",
+                "value": "datetime"
+            },
+            {
+                "key": "KBC.sanitizedName",
+                "value": "datetime"
+            },
+            {
+                "key": "KBC.primaryKey",
+                "value": false
+            },
+            {
+                "key": "KBC.uniqueKey",
+                "value": false
+            },
+            {
+                "key": "KBC.ordinalPosition",
+                "value": 6
+            }
+        ]
+    },
+    "columns": [
+        "id",
+        "int",
+        "decimal",
+        "text",
+        "date",
+        "datetime"
+    ]
+}

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Keboola\DbExtractor\Metadata;
 
 use Keboola\DbExtractor\Adapter\Connection\DbConnection;
+use Keboola\DbExtractor\Adapter\Metadata\MetadataProvider;
 use Keboola\DbExtractor\Adapter\ValueObject\QueryResult;
-use Keboola\DbExtractor\Extractor\MetadataProvider;
 use Keboola\DbExtractor\Metadata\Query\MetadataQueryFactory;
 use Keboola\DbExtractor\TableResultFormat\Metadata\Builder\ColumnBuilder;
 use Keboola\DbExtractor\TableResultFormat\Metadata\Builder\MetadataBuilder;

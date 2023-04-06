@@ -6,11 +6,12 @@ namespace Keboola\DbExtractor\Extractor;
 
 use Keboola\DbExtractor\Adapter\Connection\DbConnection;
 use Keboola\DbExtractor\Adapter\Exception\OdbcException;
+use Keboola\DbExtractor\Adapter\ODBC\OdbcConnection;
 use Keboola\DbExtractor\Adapter\ODBC\OdbcQueryResult;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class OdbcConnection extends \Keboola\DbExtractor\Adapter\ODBC\OdbcConnection
+class InformixOdbcConnection extends OdbcConnection
 {
     use QuoteTrait;
     use QuoteIdentifierTrait;
@@ -65,6 +66,13 @@ class OdbcConnection extends \Keboola\DbExtractor\Adapter\ODBC\OdbcConnection
             throw new OdbcException($e->getMessage(), $e->getCode(), $e);
         }
 
-        return new OdbcQueryResult($stmt);
+        return new OdbcQueryResult($query, $this->getQueryMetadata($query, $stmt), $stmt);
+    }
+
+    protected function getExpectedExceptionClasses(): array
+    {
+        return array_merge(self::BASE_RETRIED_EXCEPTIONS, [
+            OdbcException::class,
+        ]);
     }
 }

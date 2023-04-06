@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor;
 
-use Psr\Log\LoggerInterface;
-use Keboola\DbExtractor\Exception\UserException;
-use Keboola\DbExtractorConfig\Configuration\GetTablesListFilterDefinition;
 use Keboola\DbExtractor\Configuration\OdbcDbNode;
+use Keboola\DbExtractor\Exception\UserException;
+use Keboola\DbExtractorConfig\Config;
 use Keboola\DbExtractorConfig\Configuration\ActionConfigRowDefinition;
 use Keboola\DbExtractorConfig\Configuration\ConfigRowDefinition;
-use Keboola\DbExtractorConfig\Config;
+use Keboola\DbExtractorConfig\Configuration\GetTablesListFilterDefinition;
+use Psr\Log\LoggerInterface;
 
 class OdbcApplication extends Application
 {
-    public function __construct(array $config, LoggerInterface $logger, array $state = [], string $dataDir = '/data/')
+    protected function loadConfig(): void
     {
-        $config['parameters']['data_dir'] = $dataDir;
-        $config['parameters']['extractor_class'] = 'OdbcExtractor';
-        parent::__construct($config, $logger, $state);
-    }
+        $config = $this->getRawConfig();
+        $action = $config['action'] ?? 'run';
 
-    protected function buildConfig(array $config): void
-    {
+        $config['parameters']['extractor_class'] = 'OdbcExtractor';
+        $config['parameters']['data_dir'] = $this->getDataDir();
+
         $dbNode = new OdbcDbNode();
         if ($this->isRowConfiguration($config)) {
-            if ($this['action'] === 'run') {
+            if ($action === 'run') {
                 $this->config = new Config($config, new ConfigRowDefinition($dbNode));
-            } elseif ($this['action'] === 'getTables') {
+            } elseif ($config['action'] === 'getTables') {
                 // Tables and columns can be loaded separately
                 $this->config = new Config($config, new GetTablesListFilterDefinition($dbNode));
             } else {

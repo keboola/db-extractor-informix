@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor\FunctionalTests;
 
-use Keboola\Temp\Temp;
-use PHPUnit\Framework\Assert;
-use Symfony\Component\Filesystem\Filesystem;
-use Throwable;
-use RuntimeException;
 use InvalidArgumentException;
-use Keboola\DbExtractor\Tests\OdbcTestConnectionFactory;
 use Keboola\DatadirTests\AbstractDatadirTestCase;
 use Keboola\DatadirTests\DatadirTestSpecificationInterface;
 use Keboola\DatadirTests\DatadirTestsProviderInterface;
+use Keboola\DbExtractor\Tests\OdbcTestConnectionFactory;
 use Keboola\DbExtractor\Tests\Traits\CloseSshTunnelsTrait;
 use Keboola\DbExtractor\Tests\Traits\DefaultSchemaTrait;
 use Keboola\DbExtractor\Tests\Traits\GetSshKeysTrait;
 use Keboola\DbExtractor\Tests\Traits\RemoveAllTablesTrait;
+use Keboola\Temp\Temp;
+use PHPUnit\Framework\Assert;
+use RuntimeException;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
+use Throwable;
 
 class DatadirTest extends AbstractDatadirTestCase
 {

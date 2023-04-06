@@ -6,6 +6,7 @@ namespace Keboola\DbExtractor\Extractor;
 
 use InvalidArgumentException;
 use Keboola\DbExtractor\Adapter\ExportAdapter;
+use Keboola\DbExtractor\Adapter\Metadata\MetadataProvider;
 use Keboola\DbExtractor\Adapter\ODBC\OdbcExportAdapter;
 use Keboola\DbExtractor\Adapter\ResultWriter\DefaultResultWriter;
 use Keboola\DbExtractor\Configuration\OdbcDatabaseConfig;
@@ -20,7 +21,7 @@ use Keboola\DbExtractorConfig\Configuration\ValueObject\ExportConfig;
 
 class OdbcExtractor extends BaseExtractor
 {
-    protected OdbcConnection $connection;
+    protected InformixOdbcConnection $connection;
 
     public function testConnection(): void
     {
@@ -36,8 +37,8 @@ class OdbcExtractor extends BaseExtractor
         $dsnFactory = new OdbcDsnFactory();
         $dsn = $dsnFactory->create($dbConfig);
 
-        $connectRetries = $this->isSyncAction() ? 1 : OdbcConnection::CONNECT_DEFAULT_MAX_RETRIES;
-        $this->connection = new OdbcConnection(
+        $connectRetries = $this->isSyncAction() ? 1 : InformixOdbcConnection::CONNECT_DEFAULT_MAX_RETRIES;
+        $this->connection = new InformixOdbcConnection(
             $this->logger,
             $dsn,
             $dbConfig->getUsername(),
@@ -65,7 +66,7 @@ class OdbcExtractor extends BaseExtractor
         );
     }
 
-    protected function getMetadataProvider(): MetadataProvider
+    public function createMetadataProvider(): MetadataProvider
     {
         $factory = new OdbcMetadataProviderFactory($this->connection, $this->getDatabaseConfig());
         return $factory->create();
