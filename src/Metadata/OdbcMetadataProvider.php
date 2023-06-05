@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Keboola\DbExtractor\Metadata;
 
+use Keboola\Component\UserException;
 use Keboola\DbExtractor\Adapter\Connection\DbConnection;
 use Keboola\DbExtractor\Adapter\Metadata\MetadataProvider;
 use Keboola\DbExtractor\Adapter\ValueObject\QueryResult;
@@ -123,6 +124,14 @@ class OdbcMetadataProvider implements MetadataProvider
             } else {
                 $columnBuilder = $tableBuilder->addColumn();
                 $columnBuilders[$columnId] = $columnBuilder;
+            }
+
+            if (!isset($columnResult['colname'])) {
+                throw new UserException(sprintf(
+                    'Cannot retrieve all column metadata via query "%s". Result: %s',
+                    $columnsQuery->getSql(),
+                    var_export($columnResult, true)
+                ));
             }
 
             // Copy values from result to column builder
